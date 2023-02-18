@@ -74,7 +74,7 @@ This tutorial outlines the implementation of on-premises Active Directory within
 <p>---------------------------------------------------------------------------------------------------------------------------------</p>
 <br />
 
-<p> <strong>Join Client-1 to mydomain.com - </strong>From the Azure Portal: go to the Resource Group and click on the NIC for Client-1 -> Click DNS Servers -> Custom -> type in the Private IP address for DC-1 and click Save. Remain in Azure and navigate to Client-1 and restart the vm, this will refresh the DNS server for Client-1. Log back in to Client-1 with the original credentials and open up Command Prompt. Type "ipconfig /all" and ensure the DNS server has is now the Private IP address for DC-1. If it is: Right-click the Windows Icon on the bottom-left -> System -> Rename this PC (advanced) -> Change -> Under Member Of click Domain and enter the domain that was created (mydomain.com in this case) -> Click OK -> A popup window will appear where you can enter the credentials for jane_admin (mydomain.com\jane_admin & the password you chose). If successful, a popup window will appear that says "Welcome to the mydomain.com domain". Client-1 will need to restart, but is now a member of the mydomain.com domain and any users under the mydomain.com domain can login to it.
+<p> 5.) <strong>Join Client-1 to mydomain.com - </strong>From the Azure Portal: go to the Resource Group and click on the NIC for Client-1 -> Click DNS Servers -> Custom -> type in the Private IP address for DC-1 and click Save. Remain in Azure and navigate to Client-1 and restart the vm, this will refresh the DNS server for Client-1. Log back in to Client-1 with the original credentials and open up Command Prompt. Type "ipconfig /all" and ensure the DNS server has is now the Private IP address for DC-1. If it is: Right-click the Windows Icon on the bottom-left -> System -> Rename this PC (advanced) -> Change -> Under Member Of click Domain and enter the domain that was created (mydomain.com in this case) -> Click OK -> A popup window will appear where you can enter the credentials for jane_admin (mydomain.com\jane_admin & the password you chose). If successful, a popup window will appear that says "Welcome to the mydomain.com domain". Client-1 will need to restart, but is now a member of the mydomain.com domain and any users under the mydomain.com domain can login to it. To ensure that Client-1 is a member of the domain, Remote Desktop into DC-1 -> Server Manager -> Tools -> Active Directory Users and Computers -> Highlight mydomain.com -> Double-click the Computers directory, and Client-1 should be there. For ease of access, create a new Organizational Unit called "_CLIENTS" and drag Client-1 inside of there.
 </p>
 <p>
 <img src="https://i.imgur.com/ndgJ1cW.png" />
@@ -85,7 +85,7 @@ This tutorial outlines the implementation of on-premises Active Directory within
 <p>---------------------------------------------------------------------------------------------------------------------------------</p>
 <br />
 
-<p> <strong></strong>
+<p> 6.) <strong></strong>
 </p>
 <p>
 <img src="" />
