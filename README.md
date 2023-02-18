@@ -66,7 +66,7 @@ This tutorial outlines the implementation of on-premises Active Directory within
 <p>---------------------------------------------------------------------------------------------------------------------------------</p>
 <br />
 
-<p> 4.) <strong>Create an Admin and Normal User Account in DC-1</strong>Once logged back in to DC-1, open Server Manager if it isn't already open. Click Tools  in the top-right of Windows Server and select Active Directory Users and Computers. Once inside: right-click "mydomain.com" -> hover over New -> click Organizational Unit and name it "_ADMINS". Repeat this process and create another Organizational Unit called "_EMPLOYEES". Right-click the _ADMINS folder -> hover over New -> click User. Here we will create our admin account for the domain controller. It is good practice to do this as opposed to using a generic user account. We will use Jane Doe as the admin account, with the User Logon name jane_doe. Create a password and uncheck the "User must change password at next login" box, and check the "Password never expires" box and click Next and Finish. From here on out, we will operate DC-1 with the mydomain.com\jane_admin account.
+<p> 4.) <strong>Create an Admin and Normal User Account in DC-1</strong>Once logged back in to DC-1, open Server Manager if it isn't already open. Click Tools  in the top-right of Windows Server and select Active Directory Users and Computers. Once inside: right-click "mydomain.com" -> hover over New -> click Organizational Unit and name it "_ADMINS". Repeat this process and create another Organizational Unit called "_EMPLOYEES". Right-click the _ADMINS folder -> hover over New -> click User. Here we will create our admin account for the domain controller. It is good practice to do this as opposed to using a generic user account. We will use Jane Doe as the admin account, with the User Logon name jane_doe. Create a password and uncheck the "User must change password at next login" box, and check the "Password never expires" box and click Next and Finish. Click into _ADMINS -> Right-click Jane Doe -> Properties -> click Member of -> Add -> type admin -> click Check Names (admin should change to Administrators and should be underlined. Click OK -> Apply -> OK and Jane Doe is now an admin for the domain controller. From here on out, we will operate DC-1 with the mydomain.com\jane_admin account.
 </p>
 <img src="https://i.imgur.com/aTHP4rs.png" />
 <p>
@@ -74,9 +74,17 @@ This tutorial outlines the implementation of on-premises Active Directory within
 <p>---------------------------------------------------------------------------------------------------------------------------------</p>
 <br />
 
+<p> <strong>Join Client-1 to mydomain.com - </strong>From the Azure Portal: go to the Resource Group and click on the NIC for Client-1 -> Click DNS Servers -> Custom -> type in the Private IP address for DC-1 and click Save. Remain in Azure and navigate to Client-1 and restart the vm, this will refresh the DNS server for Client-1. Log back in to Client-1 with the original credentials and open up Command Prompt. Type "ipconfig /all" and ensure the DNS server has is now the Private IP address for DC-1. If it is: Right-click the Windows Icon on the bottom-left -> System -> Rename this PC (advanced) -> Change -> Under Member Of click Domain and enter the domain that was created (mydomain.com in this case) -> Click OK -> A popup window will appear where you can enter the credentials for jane_admin (mydomain.com\jane_admin & the password you chose). If successful, a popup window will appear that says "Welcome to the mydomain.com domain". Client-1 will need to restart, but is now a member of the mydomain.com domain and any users under the mydomain.com domain can login to it.
+</p>
+<img src="" />
+<p>
+</p>
+<p>---------------------------------------------------------------------------------------------------------------------------------</p>
+<br />
+
 <p> <strong></strong>
 </p>
-<img src=""/>
+<img src="" />
 <p>
 </p>
 <p>---------------------------------------------------------------------------------------------------------------------------------</p>
