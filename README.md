@@ -31,6 +31,7 @@ This tutorial outlines the implementation of on-premises Active Directory within
 <p>
 <img src=""/>
 </p>
+<p>---------------------------------------------------------------------------------------------------------------------------------</p>
 <br />
 
 <p> <strong></strong>
@@ -38,5 +39,6 @@ This tutorial outlines the implementation of on-premises Active Directory within
 </p>
 <p>
 </p>
+<p>---------------------------------------------------------------------------------------------------------------------------------</p>
 <br />
 
