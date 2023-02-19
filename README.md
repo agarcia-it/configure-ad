@@ -66,7 +66,7 @@ This tutorial outlines the implementation of on-premises Active Directory within
 <p>---------------------------------------------------------------------------------------------------------------------------------</p>
 <br />
 
-<p> 4.) <strong>Create an Admin and Normal User Account in DC-1</strong>Once logged back in to DC-1, open Server Manager if it isn't already open. Click Tools  in the top-right of Windows Server and select Active Directory Users and Computers. Once inside: right-click "mydomain.com" -> hover over New -> click Organizational Unit and name it "_ADMINS". Repeat this process and create another Organizational Unit called "_EMPLOYEES". Right-click the _ADMINS folder -> hover over New -> click User. Here we will create our admin account for the domain controller. It is good practice to do this as opposed to using a generic user account. We will use Jane Doe as the admin account, with the User Logon name jane_doe. Create a password and uncheck the "User must change password at next login" box, and check the "Password never expires" box and click Next and Finish. Click into _ADMINS -> Right-click Jane Doe -> Properties -> click Member of -> Add -> type admin -> click Check Names (admin should change to Administrators and should be underlined. Click OK -> Apply -> OK and Jane Doe is now an admin for the domain controller. From here on out, we will operate DC-1 with the mydomain.com\jane_admin account.
+<p> 4.) <strong>Create an Admin and Normal User Account in DC-1</strong>Once logged back in to DC-1, open Server Manager if it isn't already open. Click Tools  in the top-right of Windows Server and select Active Directory Users and Computers. Once inside: right-click "mydomain.com" -> hover over New -> click Organizational Unit and name it "_ADMINS". Repeat this process and create another Organizational Unit called "_EMPLOYEES". Right-click the _ADMINS folder -> hover over New -> click User. Here we will create our admin account for the domain controller. It is good practice to do this as opposed to using a generic user account. We will use Jane Doe as the admin account, with the User Logon name jane_doe. Create a password and uncheck the "User must change password at next login" box, and check the "Password never expires" box and click Next and Finish. Click into _ADMINS -> Right-click Jane Doe -> Properties -> click Member of -> Add -> type domain -> click Check Names -> Select Domain Admins. Click OK -> Apply -> OK and Jane Doe is now an admin for the domain controller. From here on out, we will operate DC-1 with the mydomain.com\jane_admin account.
 </p>
 <p>
 <img src="https://i.imgur.com/aTHP4rs.png" />
@@ -85,7 +85,15 @@ This tutorial outlines the implementation of on-premises Active Directory within
 <p>---------------------------------------------------------------------------------------------------------------------------------</p>
 <br />
 
-<p> 6.) <strong></strong>
+<p> 6.) <strong>Setup Remote Desktop for non-administrative users on Client-1 - </strong>Remote Desktop back in to Client-1 with the username "mydomain.com\jane_admin" and jane_admin's password. Right-click the Windows icon on the bottom-left of the screen -> System -> Remote Desktop -> Select users that can remotely access this PC -> Add -> type "domain" -> Click Check Names -> Select Domain Users -> OK x3. Now, any non-administrative user who is a member of mydomain.com will be able to Remote Desktop into Client-1. This is typically done with Group Policy to change many computers at once, but because only 1 client is used for this lab Group Policy was not used.
+</p>
+<p>
+<img src="https://i.imgur.com/ehJw5bk.png" />
+</p>
+<p>---------------------------------------------------------------------------------------------------------------------------------</p>
+<br />
+
+<p> <strong></strong>
 </p>
 <p>
 <img src="" />
@@ -93,3 +101,10 @@ This tutorial outlines the implementation of on-premises Active Directory within
 <p>---------------------------------------------------------------------------------------------------------------------------------</p>
 <br />
 
+<p> <strong></strong>
+</p>
+<p>
+<img src="" />
+</p>
+<p>---------------------------------------------------------------------------------------------------------------------------------</p>
+<br />
