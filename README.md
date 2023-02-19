@@ -70,7 +70,7 @@ This tutorial outlines the implementation of on-premises Active Directory within
 <p> 4.) <strong>Create an Admin and Normal User Account in DC-1</strong>Once logged back in to DC-1, open Server Manager if it isn't already open. Click Tools  in the top-right of Windows Server and select Active Directory Users and Computers. Once inside: right-click "mydomain.com" -> hover over New -> click Organizational Unit and name it "_ADMINS". Repeat this process and create another Organizational Unit called "_EMPLOYEES". Right-click the _ADMINS folder -> hover over New -> click User. Here we will create our admin account for the domain controller. It is good practice to do this as opposed to using a generic user account. We will use Jane Doe as the admin account, with the User Logon name jane_doe. Create a password and uncheck the "User must change password at next login" box, and check the "Password never expires" box and click Next and Finish. Click into _ADMINS -> Right-click Jane Doe -> Properties -> click Member of -> Add -> type domain -> click Check Names -> Select Domain Admins. Click OK -> Apply -> OK and Jane Doe is now an admin for the domain controller. From here on out, we will operate DC-1 with the mydomain.com\jane_admin account.
 </p>
 <p align="center">
-<img src="https://i.imgur.com/aTHP4rs.png" height="80%" width="80%" />
+<img src="https://i.imgur.com/aTHP4rs.png" height="80%" width="80%" alt="Create Admin Account For DC-1" />
 </p>
 <p>---------------------------------------------------------------------------------------------------------------------------------</p>
 <br />
@@ -78,10 +78,10 @@ This tutorial outlines the implementation of on-premises Active Directory within
 <p> 5.) <strong>Join Client-1 to mydomain.com - </strong>From the Azure Portal: go to the Resource Group and click on the NIC for Client-1 -> Click DNS Servers -> Custom -> type in the Private IP address for DC-1 and click Save. Remain in Azure and navigate to Client-1 and restart the vm, this will refresh the DNS server for Client-1. Log back in to Client-1 with the original credentials and open up Command Prompt. Type "ipconfig /all" and ensure the DNS server has is now the Private IP address for DC-1. If it is: Right-click the Windows Icon on the bottom-left -> System -> Rename this PC (advanced) -> Change -> Under Member Of click Domain and enter the domain that was created (mydomain.com in this case) -> Click OK -> A popup window will appear where you can enter the credentials for jane_admin (mydomain.com\jane_admin & the password you chose). If successful, a popup window will appear that says "Welcome to the mydomain.com domain". Client-1 will need to restart, but is now a member of the mydomain.com domain and any users under the mydomain.com domain can login to it. To ensure that Client-1 is a member of the domain, Remote Desktop into DC-1 -> Server Manager -> Tools -> Active Directory Users and Computers -> Highlight mydomain.com -> Double-click the Computers directory, and Client-1 should be there. For ease of access, create a new Organizational Unit called "_CLIENTS" and drag Client-1 inside of there.
 </p>
 <p align="center">
-<img src="https://i.imgur.com/ndgJ1cW.png" height="80%" width="80%" />
+<img src="https://i.imgur.com/ndgJ1cW.png" height="80%" width="80%" alt="Inspect Client-1's New DNS Server" />
 </p>
 <p align="center">
-<img src="https://i.imgur.com/yCYj9BW.png" height="80%" width="80%" />
+<img src="https://i.imgur.com/yCYj9BW.png" height="80%" width="80%" alt="Join Client-1 To mydomain.com" />
 </p>
 <p>---------------------------------------------------------------------------------------------------------------------------------</p>
 <br />
@@ -89,7 +89,7 @@ This tutorial outlines the implementation of on-premises Active Directory within
 <p> 6.) <strong>Setup Remote Desktop for non-administrative users on Client-1 - </strong>Remote Desktop back in to Client-1 with the username "mydomain.com\jane_admin" and jane_admin's password. Right-click the Windows icon on the bottom-left of the screen -> System -> Remote Desktop -> Select users that can remotely access this PC -> Add -> type "domain" -> Click Check Names -> Select Domain Users -> OK x3. Now, any non-administrative user who is a member of mydomain.com will be able to Remote Desktop into Client-1. This is typically done with Group Policy to change many computers at once, but because only 1 client is used for this lab Group Policy was not used.
 </p>
 <p align="center">
-<img src="https://i.imgur.com/ehJw5bk.png" />
+<img src="https://i.imgur.com/ehJw5bk.png" alt="Setup Remote Desktop For Non-Administrative Users on Client-1" />
 </p>
 <p>---------------------------------------------------------------------------------------------------------------------------------</p>
 <br />
@@ -97,7 +97,7 @@ This tutorial outlines the implementation of on-premises Active Directory within
 <p> 7.) <strong>Create 500 random users - </strong>This setp will serve as a proof of concept to simulate an organization with many users operating within mydomain.com. Navigate to <a href="https://github.com/agarcia-it/configure-ad/blob/main/create_500_random_users.ps1">https://github.com/agarcia-it/configure-ad/blob/main/create_500_random_users.ps1</a> and copy the raw contents of the Powershell script. Login to DC-1 as jane_admin and open Windows Powershell ISE as an administrator. Click New and paste the script into the field. Click Run Script and 500 randomly generated users will be created. All usernames will are structured on a firstname.lastname basis with the password "Password1" for all of them. This means that we can use any of these randomly created credentials in order to login to Client-1 because they are all users operating within mydomain.com - simulating an environment where any members (or employees) can login to any machine on the network.
 </p>
 <p align="center">
-<img src="https://i.imgur.com/SsIGjrO.png" height="80%" width="80%" />
+<img src="https://i.imgur.com/SsIGjrO.png" height="80%" width="80%" alt="Create 500 Users With Powershell" />
 </p>
 <p>---------------------------------------------------------------------------------------------------------------------------------</p>
 <br />
@@ -105,10 +105,10 @@ This tutorial outlines the implementation of on-premises Active Directory within
 <p> 8.) <strong>Login to Client-1 with a random user - </strong>While in DC-1: Open Windows Server Manager -> Tools -> Active Directory Users and Computers -> double-click the _EMPLOYEES directory. This directory contains all of the 500 newly created users that were made. Right-click any user -> Properties -> Account -> highlight and copy the "firstname.lastname" username. Open a new Remote Desktop session and enter the username "mydomain.com\firstname.lastname" and password "Password1". You should be able to login to Client-1 with this random user - and with any of the other randomly created user in the _EMPLOYEES directory on DC-1. 
 </p>
 <p align="center">
-<img src="https://i.imgur.com/FSjiK8W.png" />
+<img src="https://i.imgur.com/FSjiK8W.png" alt="Login To Client-1 With A Random User" />
 </p>
 <p align="center">
-<img src="https://i.imgur.com/DQcns0C.png" height="60%" width="60%" />
+<img src="https://i.imgur.com/DQcns0C.png" height="60%" width="60%" alt="Windows Login To Client-1 With A Random User" />
 </p>
 <p>---------------------------------------------------------------------------------------------------------------------------------</p>
 <br />
@@ -116,5 +116,5 @@ This tutorial outlines the implementation of on-premises Active Directory within
 <p> 9.) <strong>Verify the user and host - </strong>Finally, as a redundant step to verify that the random user was able to login successfully, open the Command Prompt for Client-1 and type "whoami" and hit enter. You should see the random user's name that you selected. Next, type "hostname" and hit enter. you should see that the host machine that you are using is in fact Client-1. This concludes this tutorial, and congratulations on setting up Active Directory Users and Computers! 
 </p>
 <p align="center">
-<img src="https://i.imgur.com/F0x9eYs.png" height="80%" width="80%" />
+<img src="https://i.imgur.com/F0x9eYs.png" height="80%" width="80%" alt="Verify User And Host On Client-1" />
 </p>
